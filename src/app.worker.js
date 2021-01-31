@@ -7,7 +7,6 @@ export async function init(i) {
     resolve({ worker: i });
   });
 }
-
 function readFileAsBufferArray(file) {
   return new Promise((resolve, reject) => {
     let fileReader = new FileReader();
