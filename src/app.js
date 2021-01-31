@@ -6,7 +6,7 @@ let config = {
   amount: 1,
 };
 
-export default class App {
+export default class FFMPEG {
   static async init(_config, callback) {
     let count = 0;
     config = { ...config, ..._config };
@@ -47,4 +47,4 @@ export default class App {
     }
   }
 }
-Compress.version = packageJson.version;
+FFMPEG.version = packageJson.version;

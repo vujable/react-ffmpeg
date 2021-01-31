@@ -14,7 +14,7 @@ yarn add react-ffmpeg
 
 ```js
 import React, { Component } from "react";
-import Compress from "react-compress";
+import FFMPEG from "react-ffmpeg";
 
 class App extends Component {
   constructor(props) {
@@ -22,12 +22,12 @@ class App extends Component {
     this.state = {};
   }
   async componentWillMount() {
-    console.log(Compress.version);
-    Compress.init();
+    console.log(FFMPEG.version);
+    FFMPEG.init();
   }
   async onFileChange(e) {
     const file = e.target.files[0];
-    Compress.process(file);
+    FFMPEG.process(file);
   }
 
   render() {
