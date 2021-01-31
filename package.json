@@ -1,15 +1,30 @@
 {
-  "name": "react-compress",
-  "version": "1.0.0",
+  "name": "react-ffmpeg",
+  "version": "0.0.1",
+  "description": "React multi webworker FFMPEG client.",
+  "author": "Vukasin Pesic",
+  "license": "MIT",
   "main": "./dist/app.js",
   "directories": {
     "dist": "dist"
   },
-  "author": "Vukasin Pesic",
-  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vujable/react-ffmpeg.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vujable/react-ffmpeg/issues"
+  },
+  "homepage": "https://github.com/vujable/react-ffmpeg#readme",
+  "keywords": [
+    "ffmpeg",
+    "ffmpeg wasm",
+    "ffmpeg multi web worker"
+  ],
   "scripts": {
     "build": "webpack",
-    "dev": "webpack --watch"
+    "dev": "webpack --watch",
+    "update": "webpack && git add . && git commit -m 'update' && git push"
   },
   "devDependencies": {
     "clean-webpack-plugin": "^3.0.0",
