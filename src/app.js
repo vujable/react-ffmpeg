@@ -3,7 +3,7 @@ import packageJson from "../package.json";
 
 let workers = [];
 let config = {
-  amount: 6,
+  amount: 1,
 };
 
 export default class Compress {
