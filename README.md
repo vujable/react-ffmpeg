@@ -23,7 +23,7 @@ class App extends Component {
   }
   async componentWillMount() {
     console.log(Compress.version);
-    Compress.init({amount: 1});
+    Compress.init();
   }
   async onFileChange(e) {
     const file = e.target.files[0];

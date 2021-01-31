@@ -6,11 +6,10 @@ let config = {
   amount: 1,
 };
 
-export default class Compress {
+export default class App {
   static async init(_config, callback) {
     let count = 0;
     config = { ...config, ..._config };
-    console.log("Compress Config: ", config);
     const onReady = () => {
       count++;
       if (count === config.amount) {

@@ -24,7 +24,7 @@
   "scripts": {
     "build": "webpack",
     "dev": "webpack --watch",
-    "update": "webpack && git add . && git commit -m 'update' && git push"
+    "update": "webpack && git add . && git commit -m 'update' && git push && npm version patch && npm publish"
   },
   "devDependencies": {
     "clean-webpack-plugin": "^3.0.0",
