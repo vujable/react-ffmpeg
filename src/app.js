@@ -9,11 +9,18 @@ let config = {
 
 export default class FFMPEG {
   static async init(_config, callback) {
+    if (FFMPEG.ready === true) {
+      if (callback) {
+        callback();
+      }
+      return;
+    }
     let count = 0;
     config = { ...config, ..._config };
     const onReady = () => {
       count++;
       if (count === config.amount) {
+        FFMPEG.ready = true;
         if (callback) {
           callback();
         }
@@ -52,3 +59,4 @@ export default class FFMPEG {
   }
 }
 FFMPEG.version = packageJson.version;
+FFMPEG.ready = false;
