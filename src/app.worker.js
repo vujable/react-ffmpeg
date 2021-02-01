@@ -37,6 +37,7 @@ export async function process(i, file, command) {
     const result = await ffmpeg_run(Module);
     console.log("this is real: ", result);
     const video = result[0];
+    console.log("this is real vid: ", video);
     var arrayBufferView = new Uint8Array(video.data);
     var blob = new Blob([arrayBufferView], { type: file.type });
     resolve({ worker: i, result: blob });
