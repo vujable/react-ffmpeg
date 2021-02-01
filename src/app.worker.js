@@ -39,8 +39,7 @@ export async function process(i, file, command) {
     var arrayBufferView = new Uint8Array(video.data);
     var blob = new Blob([arrayBufferView], {
       type: file.type,
-      name: video.name,
     });
-    resolve({ worker: i, result: blob });
+    resolve({ worker: i, result: new File(blob, video.name) });
   });
 }
