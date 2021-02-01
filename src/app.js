@@ -38,7 +38,7 @@ export default class FFMPEG {
       );
       if (count === config.amount) {
         if (callback) {
-          callback();
+          callback(payload);
         }
       }
     };
