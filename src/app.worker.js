@@ -1,7 +1,7 @@
 export async function init(i) {
   return new Promise(async (resolve) => {
     await importScripts(
-      "https://raw.githubusercontent.com/vujable/react-ffmpeg/master/ffmpeg.js"
+      "https://dev.nullion.com/ffmpeg.js"
     );
     console.log("Worker #", i, " : Initialized");
     resolve({ worker: i });
