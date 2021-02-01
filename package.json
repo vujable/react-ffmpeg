@@ -1,6 +1,6 @@
 {
   "name": "react-ffmpeg",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "React multi webworker FFMPEG client.",
   "author": "Vukasin Pesic",
   "license": "MIT",
