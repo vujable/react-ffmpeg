@@ -31,11 +31,11 @@ export async function process(i, file, command) {
         },
       ],
       arguments: inputCommand.split(" "),
-      TOTAL_MEMORY: 2000000,
+      TOTAL_MEMORY: 200000000,
     };
     const time = Date.now();
-    const result = ffmpeg_run(Module);
-    //const totalTime = Date.now() - time;
+    const result = await ffmpeg_run(Module);
+    console.log("this is real: ", result);
     const video = result[0];
     var arrayBufferView = new Uint8Array(video.data);
     var blob = new Blob([arrayBufferView], { type: file.type });
