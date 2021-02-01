@@ -35,7 +35,7 @@ export async function process(i, file, command) {
     };
     const time = Date.now();
     const result = ffmpeg_run(Module);
-    const totalTime = Date.now() - time;
+    //const totalTime = Date.now() - time;
     const video = result[0];
     var arrayBufferView = new Uint8Array(video.data);
     var blob = new Blob([arrayBufferView], { type: file.type });
