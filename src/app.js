@@ -4,6 +4,7 @@ import packageJson from "../package.json";
 let workers = [];
 let config = {
   amount: 1,
+  debug: false,
 };
 
 export default class FFMPEG {
@@ -28,14 +29,17 @@ export default class FFMPEG {
     let count = 0;
     const onProcess = (payload) => {
       count++;
-      console.log(
-        "process #",
-        payload.worker,
-        " completed ",
-        `(${count}/${config.amount})`,
-        " result = ",
-        payload.result
-      );
+      if (config.debug === true) {
+        console.log(
+          "process #",
+          payload.worker,
+          " completed ",
+          `(${count}/${config.amount})`,
+          " result = ",
+          payload.result
+        );
+      }
+
       if (count === config.amount) {
         if (callback) {
           callback(payload);

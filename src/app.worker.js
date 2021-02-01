@@ -1,9 +1,6 @@
 export async function init(i) {
   return new Promise(async (resolve) => {
-    await importScripts(
-      "https://dev.nullion.com/ffmpeg.js"
-    );
-    console.log("Worker #", i, " : Initialized");
+    await importScripts("https://dev.nullion.com/ffmpeg.js");
     resolve({ worker: i });
   });
 }
@@ -21,10 +18,9 @@ function readFileAsBufferArray(file) {
 }
 export async function process(i, file, command) {
   return new Promise(async (resolve) => {
-    console.log("Worker #", i, " : processing");
     const arrayBuffer = await readFileAsBufferArray(file);
     const filename = `video-${Date.now()}.webm`;
-    const inputCommand = `-i ${filename} ${command} test.mp4`;
+    const inputCommand = `-i ${filename} ${command} ${file.name}`;
     const Module = {
       print: (text) => {},
       printErr: (text) => {},
@@ -40,11 +36,6 @@ export async function process(i, file, command) {
     const time = Date.now();
     const result = ffmpeg_run(Module);
     const totalTime = Date.now() - time;
-    console.log(
-      "Worker #",
-      i,
-      " : Finished processing (took " + totalTime + "ms)"
-    );
-    resolve({ worker: i, result: result });
+    resolve({ worker: i, result: { ...result, type: file.type } });
   });
 }
