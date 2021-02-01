@@ -40,6 +40,6 @@ export async function process(i, file, command) {
     var blob = new Blob([arrayBufferView], {
       type: file.type,
     });
-    resolve({ worker: i, result: new File(blob, video.name) });
+    resolve({ worker: i, result: new File([blob], video.name) });
   });
 }
