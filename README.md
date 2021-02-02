@@ -12,22 +12,23 @@ yarn add react-ffmpeg
 
 #### Usage
 
+To remove metadata location and author:
+
 ```js
 import React, { Component } from "react";
 import FFMPEG from "react-ffmpeg";
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-  async componentWillMount() {
-    console.log(FFMPEG.version);
-    FFMPEG.init();
-  }
   async onFileChange(e) {
     const file = e.target.files[0];
-    FFMPEG.process(file);
+    await FFMPEG.process(
+      file,
+      '-metadata location="" -metadata location-eng="" -metadata author="" -c:v copy -c:a copy',
+      function (e) {
+        const video = e.result;
+        console.log(video);
+      }.bind(this)
+    );
   }
 
   render() {
@@ -42,7 +43,6 @@ class App extends Component {
 }
 
 export default App;
-
 ```
 
 ## Roadmap 📈
