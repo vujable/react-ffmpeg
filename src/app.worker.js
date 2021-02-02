@@ -1,5 +1,5 @@
-export const initialized = false;
-export const ready = false;
+export let initialized = false;
+export let ready = false;
 
 function readFileAsBufferArray(file) {
   return new Promise((resolve, reject) => {
