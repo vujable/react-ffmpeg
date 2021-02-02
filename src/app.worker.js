@@ -33,7 +33,7 @@ export async function process(i, file, command) {
         },
       ],
       arguments: inputCommand.split(" "),
-      TOTAL_MEMORY: 200000000,
+      TOTAL_MEMORY: 2100000000,
     };
     const result = await ffmpeg_run(Module);
     const video = result[0];
