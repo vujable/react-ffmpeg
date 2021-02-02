@@ -19,6 +19,8 @@ export default class FFMPEG {
     } else {
       console.log('new worker')
       const new_worker = workers.push(await worker());
+      console.log('new worker ' , new_worker)
+      console.log('workers ' , workers)
       workers[new_worker].process(ready_worker, file, command).then(onProcess);
     }
   }
