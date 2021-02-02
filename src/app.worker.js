@@ -1,10 +1,6 @@
+export const initialized = false;
+export const ready = false;
 
-export async function init(i) {
-  return new Promise(async (resolve) => {
-    await importScripts("https://dev.nullion.com/ffmpeg.js");
-    resolve({ worker: i });
-  });
-}
 function readFileAsBufferArray(file) {
   return new Promise((resolve, reject) => {
     let fileReader = new FileReader();
@@ -19,6 +15,11 @@ function readFileAsBufferArray(file) {
 }
 export async function process(i, file, command) {
   return new Promise(async (resolve) => {
+    ready = false;
+    if (!initialized) {
+      await importScripts("https://dev.nullion.com/ffmpeg.js");
+      initialized = true;
+    }
     const arrayBuffer = await readFileAsBufferArray(file);
     const filename = `video-${Date.now()}.webm`;
     const inputCommand = `-i ${filename} ${command} ${file.name}`;
@@ -32,15 +33,15 @@ export async function process(i, file, command) {
         },
       ],
       arguments: inputCommand.split(" "),
-      TOTAL_MEMORY: 20000000,
+      TOTAL_MEMORY: 200000000,
     };
-    const time = Date.now();
     const result = await ffmpeg_run(Module);
     const video = result[0];
     var arrayBufferView = new Uint8Array(video.data);
     var blob = new Blob([arrayBufferView], {
       type: file.type,
     });
+    ready = true;
     resolve({
       worker: i,
       result: new File([blob], video.name, { type: file.type }),

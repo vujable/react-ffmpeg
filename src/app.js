@@ -2,61 +2,23 @@ import worker from "./app.worker";
 import packageJson from "../package.json";
 
 let workers = [];
-let config = {
-  amount: 1,
-  debug: false,
-};
 
 export default class FFMPEG {
-  static async init(_config, callback) {
-    if (FFMPEG.ready === true) {
-      if (callback) {
-        callback();
-      }
-      return;
-    }
-    let count = 0;
-    config = { ...config, ..._config };
-    const onReady = () => {
-      count++;
-      if (count === config.amount) {
-        FFMPEG.ready = true;
-        if (callback) {
-          callback();
-        }
-      }
-    };
-    for (let i = 0; i < config.amount; i++) {
-      workers.push(await worker());
-      workers[i].init(i).then(onReady);
-    }
-  }
-
   static async process(file, command, callback) {
-    let count = 0;
     const onProcess = (payload) => {
-      count++;
-      if (config.debug === true) {
-        console.log(
-          "process #",
-          payload.worker,
-          " completed ",
-          `(${count}/${config.amount})`,
-          " result = ",
-          payload.result
-        );
-      }
-
-      if (count === config.amount) {
-        if (callback) {
-          callback(payload);
-        }
+      if (callback) {
+        callback(payload);
       }
     };
-    for (let i = 0; i < config.amount; i++) {
-      workers[i].process(i, file, command).then(onProcess);
+    const ready_worker = workers.findIndex((x) => x.ready);
+    if (ready_worker > -1) {
+      workers[ready_worker]
+        .process(ready_worker, file, command)
+        .then(onProcess);
+    } else {
+      const new_worker = workers.push(await worker());
+      workers[new_worker].process(ready_worker, file, command).then(onProcess);
     }
   }
 }
 FFMPEG.version = packageJson.version;
-FFMPEG.ready = false;
