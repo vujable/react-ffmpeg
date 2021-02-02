@@ -12,12 +12,10 @@ export default class FFMPEG {
     };
     const ready_worker = workers.findIndex((x) => x.ready);
     if (ready_worker > -1) {
-      console.log("found ready worker");
       workers[ready_worker]
         .process(ready_worker, file, command)
         .then(onProcess);
     } else {
-      console.log("new worker");
       const new_worker = workers.push(await worker());
       workers[new_worker - 1]
         .process(ready_worker, file, command)
