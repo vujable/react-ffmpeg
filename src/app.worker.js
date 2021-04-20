@@ -21,8 +21,10 @@ export async function process(i, file, command) {
       initialized = true;
     }
     const arrayBuffer = await readFileAsBufferArray(file);
+    const type = file.type.split("/")[1]
     const filename = `video-${Date.now()}.webm`;
-    const inputCommand = `-i ${filename} ${command} ${file.name}`;
+    const filename2 = `video-${Date.now()}.${type}`;
+    const inputCommand = `-i ${filename} ${command} ${filename2}`;
     const Module = {
       print: (text) => {},
       printErr: (text) => {},
