@@ -17,7 +17,7 @@ export async function process(i, file, command) {
   return new Promise(async (resolve) => {
     ready = false;
     if (!initialized) {
-      await importScripts("ffmpeg.js");
+      await importScripts("https://rawcdn.githack.com/vujable/react-ffmpeg/129d9bd7c18af14144191357ef816f2e3450bc84/ffmpeg.js");
       initialized = true;
     }
     const arrayBuffer = await readFileAsBufferArray(file);
