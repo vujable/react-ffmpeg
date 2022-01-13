@@ -1,6 +1,6 @@
 {
   "name": "@kinger6621/react-ffmpeg",
-  "version": "0.0.34",
+  "version": "0.0.35",
   "description": "React multi webworker FFMPEG client.",
   "author": "Vukasin Pesic",
   "license": "MIT",
@@ -10,12 +10,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vujable/react-ffmpeg.git"
+    "url": "git+https://github.com/kingerking/react-ffmpeg.git"
   },
   "bugs": {
-    "url": "https://github.com/vujable/react-ffmpeg/issues"
+    "url": "https://github.com/kingerking/react-ffmpeg/issues"
   },
-  "homepage": "https://github.com/vujable/react-ffmpeg#readme",
+  "homepage": "https://github.com/kingerking/react-ffmpeg#readme",
   "keywords": [
     "ffmpeg",
     "ffmpeg wasm",
