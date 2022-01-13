@@ -13,8 +13,12 @@ function readFileAsBufferArray(file) {
     fileReader.readAsArrayBuffer(file);
   });
 }
-export async function process(i, file, command) {
+export async function process(i, file, command, outExt, additionalOptions = {
+  outputBlobObject: false,
+  customFileType: null,
+}) {
   return new Promise(async (resolve) => {
+
     ready = false;
     if (!initialized) {
       await importScripts("https://rawcdn.githack.com/vujable/react-ffmpeg/129d9bd7c18af14144191357ef816f2e3450bc84/ffmpeg.js");
@@ -23,11 +27,11 @@ export async function process(i, file, command) {
     const arrayBuffer = await readFileAsBufferArray(file);
     const extension = file.name.split('.').pop();
     const filename = `video-${Date.now()}.webm`;
-    const filename2 = `video-${Date.now()}.${extension}`;
+    const filename2 = `video-${Date.now()}.${outExt || extension}`;
     const inputCommand = `-i ${filename} ${command} ${filename2}`;
     const Module = {
-      print: (text) => {},
-      printErr: (text) => {},
+      print: (text) => { },
+      printErr: (text) => { },
       files: [
         {
           data: new Uint8Array(arrayBuffer),
@@ -41,12 +45,19 @@ export async function process(i, file, command) {
     const video = result[0];
     var arrayBufferView = new Uint8Array(video.data);
     var blob = new Blob([arrayBufferView], {
-      type: file.type,
+      type: additionalOptions.customBlobType || file.type,
     });
     ready = true;
+    if (additionalOptions.outputBlobObject) {
+      console.log("resolving with Blob export. options: ", additionalOptions);
+      return resolve({ worker: i, result: blob });
+    }
+    console.log("resolving with File export. options: ", additionalOptions);
     resolve({
       worker: i,
-      result: new File([blob], video.name, { type: file.type }),
+      result: new File([blob], video.name, {
+        type: !additionalOptions.customFileType ? additionalOptions.customFileType : file.type
+      }),
     });
   });
 }
